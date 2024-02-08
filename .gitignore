@@ -1,4 +1,2 @@
-# Este archivo se crea para evitar que ciertas carpetas o archivos se suban a Github.
-# En este caso, vamos a omitir la carpeta node_modules porque pesa bastante.
-
 node_modules/
+.env
