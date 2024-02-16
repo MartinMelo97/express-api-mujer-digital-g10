@@ -84,9 +84,30 @@ app.post('/products', function(req, res) {
     products.push(data);
     return res.status(201).json(products);
 });
-// GET - POST - PUT - PATCH - DELETE <- Métodos HTTP
+// GET - POST - PUT - PATCH - DELETE <- Métodos HTTP 
+app.put('/products/:id', function(req, res) {
+    const { id } = req.params;
+    const productIndex = products.findIndex(function (product) {
+        return product.id === +id;
+    });
 
-// Endpoint para crear productos
+    if (productIndex === -1) {
+        return res.status(404).json({
+            message: 'El producto solicitado no existe'
+        })
+    }
+
+    const product = products[productIndex];
+    const newProduct = req.body;
+
+    // Sobreescritura
+    const updatedProduct = Object.assign(product, newProduct);
+
+    // Acrualizamos el arreglo
+    products[productIndex] = updatedProduct;
+
+    return res.status(200).json(products);
+});
 
 
 app.get('/', function(req, res) {
