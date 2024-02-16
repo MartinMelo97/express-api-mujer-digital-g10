@@ -109,6 +109,27 @@ app.put('/products/:id', function(req, res) {
     return res.status(200).json(products);
 });
 
+app.delete('/products/:id', function(req, res) {
+    console.log('HOLA!')
+    const { id } = req.params;
+
+    const productIndex = products.findIndex(function(product) {
+        return product.id === Number(id)
+    });
+
+    if (productIndex === -1) {
+        return res.status(404).json({
+            message: 'No se encontró el producto con el ID: ' + id
+        })
+    }
+
+    // Eliminamos el productos
+    // eliminamos la información del arreglo, por el índice
+    products.splice(productIndex, 1);
+
+    return res.status(200).json(products);
+});
+
 
 app.get('/', function(req, res) {
     return res.status(200).json({ message: 'Hola Mundo! Mujer Digital!' });
